@@ -1,4 +1,4 @@
-import greenfoot.*;  
+import greenfoot.*;
 
 public class Bom extends Actor
 {
@@ -7,22 +7,20 @@ public class Bom extends Actor
         img.scale(60, 60);
         setImage(img);
     }
-    
+
     public void act()
     {
         setLocation(getX(), getY() + 3);
-        if (getY() >= getWorld().getHeight() -1) {
+
+        if (isTouching(Monyet.class)) {
+            MyWorld world = (MyWorld)getWorld();
+            world.showGameOver();  // Panggil method dari MyWorld
+            getWorld().removeObject(this);
+            return;
+        }
+
+        if (getY() >= getWorld().getHeight() - 1) {
             getWorld().removeObject(this);
         }
-        
-        if (isTouching(Monyet.class)) {
-            showGameOver();
-        }
-    }
-    
-    private void showGameOver() {
-        World World = getWorld();
-        World.showText("Kasian Lu monyet", World.getWidth() / 2, World.getWidth() / 2);
-        Greenfoot.stop();
     }
 }
